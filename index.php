@@ -15,7 +15,7 @@ $return     = "Default Response from Bot-Web-Hook";
 
 
 echo $parameters['facts-category'];
-die;
+
 if ($action == "getCategory") {
     
     if ($parameters['facts-category'] == 'Account') {
@@ -28,8 +28,5 @@ if ($action == "getCategory") {
         $return = "Play your Slots and Table games from here";
     }
 }
-
-print_r($return);
-
 
 ?>
