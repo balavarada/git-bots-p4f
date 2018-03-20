@@ -15,7 +15,7 @@ $_return     = "Default Response from Bot-Web-Hook";
         $_return = "Get the updates from Hotel, Clubs, Bar, restaurents from here";
     } else if ($parameters['facts-category'] == 'Play') {
         $_return = "Play your Slots and Table games from here";
-    }*/
+    }
     echo $_return;
 }*/
 ?>
