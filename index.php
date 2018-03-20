@@ -11,10 +11,12 @@ $_POST = json_decode(file_get_contents('php://input'), true);
 print_r($_POST);
 $action = $_POST['result']['action'];
 
-if(action = "getCategory") {
+if($action == "getCategory") {
 
 
 }
 
 
 ?>
+
+
