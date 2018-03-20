@@ -5,7 +5,7 @@ $action     = $_POST['result']['action'];
 $parameters = $_POST['result']['parameters'];
 $_return     = "Default Response from Bot-Web-Hook";
 
-/*if ($action == "getCategory") {
+if ($action == "getCategory") {
     
  /*   if ($parameters['facts-category'] == 'Account') {
         $_return = "Link your core system account from here";
@@ -17,5 +17,6 @@ $_return     = "Default Response from Bot-Web-Hook";
         $_return = "Play your Slots and Table games from here";
     }
     echo $_return;
-}*/
+*/
+}
 ?>
