@@ -29,4 +29,6 @@ if ($action == "getCategory") {
     }*/
 }
 
+print_r($return);
+die;
 ?>
