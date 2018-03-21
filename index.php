@@ -20,13 +20,18 @@ if ($action == "getCategory") {
     }
 
 
-    print_r('{
-	speech:“' . $_return . '”,
-	displayText:“' . $_return . '”,
-	data:{},
-	contextOut:[],
-	source:"webhook"
-    }');
+    print_r(
+
+'{
+	"speech": "' . $_return . '",
+	"displayText": "' . $_return . '",
+	"data": {},
+	"contextOut": [],
+	"source": "webhook"
+}'
+
+
+);
 
 }
 ?>
