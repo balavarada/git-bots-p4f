@@ -18,6 +18,15 @@ if ($action == "getCategory") {
             $_return = "Default Response from Bot-Web-Hook";
             break;
     }
-echo $_return;
+
+
+    echo '{
+	speech:“$_return”,
+	displayText:“$_return”,
+	data:{},
+	contextOut:[],
+	source:"webhook"
+    }';
+
 }
 ?>
