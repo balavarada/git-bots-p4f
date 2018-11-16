@@ -4,7 +4,7 @@ $_POST = json_decode(file_get_contents('php://input'), true);
 $action     = $_POST['result']['action'];
 $parameters = $_POST['result']['parameters'];
 $_return = "";
-$_anchTag = "";
+$_anchTag = "TEST anch Tag";
 $games = array(
     'junglewild',
     'bierhaus200',
