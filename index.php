@@ -1,8 +1,6 @@
 <?php
 $_POST = json_decode(file_get_contents('php://input'), true);
 
-print_r($_POST);
-die;
 $action     = $_POST['result']['action'];
 $parameters = $_POST['result']['parameters'];
 $games = array(
