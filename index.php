@@ -59,7 +59,7 @@ if ($action == "getCategory") {
     if( empty($results) ) { $_return = 'No matches found.'; }
     else { $_return = "'green' was found in: "; }
 
-   // print_r(
+ print_r(
 
 '{
 	"speech": "' . $_return . '",
