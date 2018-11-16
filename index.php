@@ -3,6 +3,8 @@ $_POST = json_decode(file_get_contents('php://input'), true);
 
 $action     = $_POST['result']['action'];
 $parameters = $_POST['result']['parameters'];
+$_return = "";
+$_anchTag = "";
 $games = array(
     'junglewild',
     'bierhaus200',
@@ -50,27 +52,63 @@ if ($action == "getCategory") {
         default:
             $_return = "Default Response from Bot-Web-Hook";
             break;
+    
     }
-    if ($parameters['game-name']) {
-        foreach ($games as $parameters['game-name']) {
-            if (strpos($value, 'green') !== false) { $results[] = $value; }          
-        }
-    }
-    if( empty($results) ) { $_return = 'No matches found.'; }
-    else { $_return = "'green' was found in: "; }
-
- print_r(
-
-'{
-	"speech": "' . $_return . '",
-	"displayText": "' . $_return . '",
-	"data": {},
-	"contextOut": [],
-	"source": "webhook"
-}'
-
-
-);
-
 }
+
+if ($action == "navigatetogame") {
+    if(isset($parameters['game-name'])) {
+        $game_name = strtolower($parameters['game-name']);
+        $input = preg_quote($game_name, '~'); // don't forget to quote input string!        
+        $result = preg_filter('~' . $input . '~', null, $games);
+
+        print_r($result);
+        if(sizeof($result) == 0) {
+            // no match
+            $_return = "Sorry " . $parameters['game-name'] . " is not added yet";
+        } elseif(sizeof($result) == 1) {
+            // exact match            
+            $values = array_keys( $result);            
+            $_return = $games[$values[0]];
+
+            $_anchTag = '<a href="https://localhost:8000/game/'. $games[$values[0]] . '" class="function" rel="rdfs-seeAlso">'.$games[$values[0]].'</a>';
+        } else {            
+            // more than one match
+            $values = array_values( $result);            
+            $_return = implode($values, ",");
+        }        
+    }
+
+    /* Pay load json 
+    "game-name" : "romanchariots",
+        "popular_game" : "open new games"
+        "new_game" : "newly added game"
+    */
+    if(isset($parameters['new_game'])) {
+        $_return = "zeus";
+    }
+    if (isset($parameters['popular_game'])) {
+        $_return = "quickhitplatinum";
+    }
+    /*foreach ($games as $parameters['game-name']) {
+        if (strpos($value, 'green') !== false) { $results[] = $value; }          
+    }*/    
+}
+
+/*if( empty($results) ) { $_return = 'No matches found.'; }
+else { $_return = "'green' was found in: "; }*/
+
+// Send JSON Output to the BOT
+
+/********************************** START ************************************ */   
+ print_r(
+    '{
+        "speech": "' . $_return . '",
+        "displayText": ' . $_anchTag .  ',
+        "data": {},
+        "contextOut": [],
+        "source": "webhook"
+    }'
+);
+/********************************** END ************************************ */
 ?>
