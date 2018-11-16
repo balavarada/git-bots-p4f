@@ -4,7 +4,7 @@ $_POST = json_decode(file_get_contents('php://input'), true);
 $action     = $_POST['result']['action'];
 $parameters = $_POST['result']['parameters'];
 $_return = "";
-$_anchTag = "TEST anch Tag";
+$_anchTag = "";
 $games = array(
     'junglewild',
     'bierhaus200',
@@ -62,7 +62,7 @@ if ($action == "navigatetogame") {
         $input = preg_quote($game_name, '~'); // don't forget to quote input string!        
         $result = preg_filter('~' . $input . '~', null, $games);
 
-        print_r($result);
+        
         if(sizeof($result) == 0) {
             // no match
             $_return = "Sorry " . $parameters['game-name'] . " is not added yet";
@@ -71,7 +71,9 @@ if ($action == "navigatetogame") {
             $values = array_keys( $result);            
             $_return = $games[$values[0]];
 
-            $_anchTag = '<a href="https://localhost:8000/game/'. $games[$values[0]] . '" class="function" rel="rdfs-seeAlso">'.$games[$values[0]].'</a>';
+            //$_anchTag = "<a href=\'https://localhost:8000/game/". $games[$values[0]] ."\' class='function\' rel=\'rdfs-seeAlso\'>".$games[$values[0]]."</a>";
+            $_anchTag = "https://localhost:8000/game/". $games[$values[0]];
+            
         } else {            
             // more than one match
             $values = array_values( $result);            
@@ -104,7 +106,7 @@ else { $_return = "'green' was found in: "; }*/
  print_r(
     '{
         "speech": "' . $_return . '",
-        "displayText": ' . $_anchTag .  ',
+        "displayText": "' . $_anchTag . '",
         "data": {},
         "contextOut": [],
         "source": "webhook"
