@@ -5,7 +5,6 @@ $action     = $_POST['result']['action'];
 $parameters = $_POST['result']['parameters'];
 $_return = "";
 $_anchTag = "";
-$navigate = 0;
 $games = array(
     'junglewild',
     'bierhaus200',
@@ -71,7 +70,6 @@ if ($action == "navigatetogame") {
             // exact match            
             $values = array_keys( $result);            
             $_return = $games[$values[0]];
-            $navigate = 1;
 
             //$_anchTag = "<a href=\'https://localhost:8000/game/". $games[$values[0]] ."\' class='function\' rel=\'rdfs-seeAlso\'>".$games[$values[0]]."</a>";
             $_anchTag = "https://localhost:8000/game/". $games[$values[0]];
@@ -90,11 +88,9 @@ if ($action == "navigatetogame") {
     */
     if(isset($parameters['new_game'])) {
         $_return = "zeus";
-        $navigate = 1;
     }
     if (isset($parameters['popular_game'])) {
         $_return = "quickhitplatinum";
-        $navigate = 1;
     }
     /*foreach ($games as $parameters['game-name']) {
         if (strpos($value, 'green') !== false) { $results[] = $value; }          
@@ -108,30 +104,15 @@ else { $_return = "'green' was found in: "; }*/
 
 function sendToBot() {
     /********************************** START ************************************ */
-    if($navigate) {
-        print_r(
-            '{
-                "speech": "' . $_return . '",
-                "displayText": "' . $_anchTag . '",
-                "data": {},
-                "action" : "reload",
-                "contextOut": [],
-                "source": "webhook"
-            }'
-        );
-
-    } else {
-        print_r(
-            '{
-                "speech": "' . $_return . '",
-                "displayText": "' . $_anchTag . '",
-                "data": {},
-                "contextOut": [],
-                "source": "webhook"
-            }'
-        );
-    }
-    
+    print_r(
+        '{
+            "speech": "' . $_return . '",
+            "displayText": "' . $_anchTag . '",
+            "data": {},
+            "contextOut": [],
+            "source": "webhook"
+        }'
+    );
     /********************************** END ************************************ */
 }
 ?>
